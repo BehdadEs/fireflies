@@ -33,7 +33,7 @@ class ConditionItem(BaseModel):
 
 class Condition(BaseModel):
     items: list[ConditionItem]
-    bitwise: XOR
+    bitwise: XOR | None = None
     status_code: int = Field(gt=100, lt=600)
     response_body: dict
 
