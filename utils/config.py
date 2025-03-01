@@ -29,15 +29,6 @@ def get_config() -> dict:
             "db_url": os.getenv("DATABASE_URL"),
         }
         return config
-    elif os.environ.get("ENVIRONMENT") == "production":
-        host = os.getenv("HOST")
-        user = os.getenv("USER")
-        password = os.getenv("PASSWORD")
-        db_name = os.getenv("DATABASE_NAME")
-        config = {
-            "db_url": f"postgresql://{user}:{password}@{host}/{db_name}",
-        }
-        return config
     else:
         raise ValueError("env is not set")
 
