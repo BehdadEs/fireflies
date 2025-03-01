@@ -9,10 +9,17 @@ def stop():
 
 
 def get_config() -> dict:
-
-    load_dotenv()
-    if os.environ.get("ENVIRONMENT") == "local":
-
+    if os.environ.get("ENVIRONMENT") == "production":
+        host = os.getenv("HOST")
+        user = os.getenv("USER")
+        password = os.getenv("PASSWORD")
+        db_name = os.getenv("DATABASE_NAME")
+        config = {
+            "db_url": f"postgresql://{user}:{password}@{host}/{db_name}",
+        }
+        return config
+    elif os.environ.get("ENVIRONMENT", "local") == "local":
+        load_dotenv()
         keys = ["DATABASE_URL"]
         for key in keys:
             if os.environ.get(key) is None:
@@ -23,8 +30,12 @@ def get_config() -> dict:
         }
         return config
     elif os.environ.get("ENVIRONMENT") == "production":
+        host = os.getenv("HOST")
+        user = os.getenv("USER")
+        password = os.getenv("PASSWORD")
+        db_name = os.getenv("DATABASE_NAME")
         config = {
-            "db_url": os.getenv("DATABASE_URL"),
+            "db_url": f"postgresql://{user}:{password}@{host}/{db_name}",
         }
         return config
     else:
