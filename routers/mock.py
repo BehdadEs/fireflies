@@ -2,7 +2,7 @@ from fastapi import status, HTTPException, Depends, APIRouter, Request, Response
 from sqlalchemy.orm import Session
 from database.db import get_db
 from database import models
-from time import sleep
+from asyncio import sleep
 
 router = APIRouter(tags=["Mocking API"])
 
@@ -47,7 +47,7 @@ async def mock(
         return endpoint_data.default_response_body
 
     if endpoint_data.sleep and endpoint_data.sleep > 0:
-        sleep(endpoint_data.sleep)
+        await sleep(endpoint_data.sleep)
 
     if not endpoint_data.conditions:
         return return_default()
