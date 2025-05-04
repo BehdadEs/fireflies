@@ -15,7 +15,7 @@ def create_endpoint(data: dict) -> EndpointData:
             status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
             detail={"message": "Endpoint should start with (/)"},
         )
-    if endpoint["sleep"] > 60:
+    if endpoint["sleep"] and endpoint["sleep"] > 60:
         raise HTTPException(
             status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
             detail={"message": "Sleep should be less than 60 seconds"},

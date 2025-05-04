@@ -1,6 +1,7 @@
 from pydantic import BaseModel, Field
 from enum import Enum
 from datetime import datetime, timezone
+from typing import Any
 
 
 class Method(str, Enum):
@@ -43,7 +44,7 @@ class AddEndpoint(BaseModel):
     method: Method
     default_status_code: int = Field(gt=100, lt=600)
     conditions: list[Condition] | None = None
-    default_response_body: dict
+    default_response_body: Any
     sleep: float | None = None
     tag: str | None = None
 
@@ -53,7 +54,7 @@ class EndpointResponse(BaseModel):
     endpoint: str
     method: str
     conditions: list[Condition] | None = None
-    default_response_body: dict
+    default_response_body: Any
     default_status_code: int = Field(gt=100, lt=600)
     sleep: float | None = None
     tag: str | None = None
